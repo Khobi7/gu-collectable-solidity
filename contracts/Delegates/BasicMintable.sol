@@ -1,7 +1,7 @@
 pragma solidity ^0.4.24;
 
-import "./Delegate.sol";
-import "./Utils/Ownable.sol";
+import "../Delegate.sol";
+import "../Utils/Ownable.sol";
 
 contract BasicMintable is Delegate, Ownable {
 

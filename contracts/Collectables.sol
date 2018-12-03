@@ -22,6 +22,7 @@ contract Collectables is ERC721Full("GU Collectable", "TRINKET"), Ownable {
 
     function addDelegate(address delegate) public onlyOwner {
         uint32 delegateID = uint32(delegateCount++);
+        // should never happen, but check anyway
         require(delegates[delegateID] == address(0), "delegate is already set for collectable type");
         delegates[delegateID] = delegate;
         emit DelegateAdded(delegate, delegateID);

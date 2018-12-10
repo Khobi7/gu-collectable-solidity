@@ -1,8 +1,8 @@
 pragma solidity ^0.4.24;
 
-contract Collectable {
+contract ICollectable {
 
-    function mint(uint32 delegateID, address to) public;
+    function mint(uint32 delegateID, address to) public returns (uint);
 
     function transferFrom(address from, address to, uint256 tokenId) public;
     function approve(address to, uint256 tokenId) public;

@@ -3,20 +3,24 @@ pragma solidity ^0.4.24;
 import "../Delegate.sol";
 import "../Utils/Ownable.sol";
 
-contract SimpleClaimable is Delegate, Ownable {
+contract ImTokenCardBack is Delegate, Ownable {
 
     mapping(address => bool) public claimed;
+    mapping(address => bool) public approvedSenders;
     bool public canClaim = false;
 
     function setCanClaim(bool can) public onlyOwner {
         canClaim = can;
     }
+    
+    function setApprovedSender(address _sender, bool _approved) public onlyOwner {
+        approvedSenders[_sender] = _approved;
+    }
 
     function mint(address _sender, address _to) public returns (bool) {
-        require(_to.balance >= 0.5 ether, "must have at least 0.5 eth in account");
-        require(_sender == _to, "can only claim for yourself");
+        require(approvedSenders[_sender], "sender must be approved");
         require(canClaim, "can't claim");
-        require(!claimed[_to], "already claimed");
+        require(!claimed[_to], "one card back per user");
         claimed[_to] = true;
         return true;
     }

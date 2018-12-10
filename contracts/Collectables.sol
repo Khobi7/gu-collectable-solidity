@@ -28,11 +28,12 @@ contract Collectables is ERC721Full("GU Collectable", "TRINKET"), Ownable {
         emit DelegateAdded(delegate, delegateID);
     }
 
-    function mint(uint32 delegateID, address to) public {
+    function mint(uint32 delegateID, address to) public returns (uint) {
         Delegate delegate = getDelegate(delegateID);
         require(delegate.mint(msg.sender, to), "delegate could not mint token");
         uint id = collectables.push(delegateID) - 1;
         super._mint(to, id);
+        return id;
     }
 
     function transferFrom(address from, address to, uint256 tokenId) public {
